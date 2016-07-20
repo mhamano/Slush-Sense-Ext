@@ -1,4 +1,4 @@
-# Slush Sense-ext [![Build Status](https://secure.travis-ci.org/mhamano/slush-sense-ext.png?branch=master)](https://travis-ci.org/mhamano/slush-sense-ext) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-sense-ext.png)](http://badges.enytc.com/for/npm/slush-sense-ext)
+# Slush Sense-ext [![Build Status](https://secure.travis-ci.org/mhamano/Slush-Sense-Ext.png?branch=master)](https://travis-ci.org/mhamano/Slush-Sense-Ext) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-sense-ext.png)](http://badges.enytc.com/for/npm/slush-sense-ext)
 
 > A slush generator to scaffold a Qlik Sense Extension project
 
@@ -40,7 +40,7 @@ See the [CONTRIBUTING Guidelines](https://github.com/mhamano/slush-sense-ext/blo
 ## Support
 If you have any problem or suggestion please open an issue [here](https://github.com/mhamano/slush-sense-ext/issues).
 
-## License 
+## License
 
 The MIT License
 
@@ -66,4 +66,3 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
-
