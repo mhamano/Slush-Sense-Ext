@@ -1,0 +1,9 @@
+{
+	"name" : "<%= extensionName %>",
+	"description" : "<%= extensionDescription %>",
+	"icon" : "extension",
+	"type" : "visualization",
+	"version": "<%= extensionVersion %>",
+	"preview" : "<%= extensionNameSlug %>.png",
+	"author": "<%= authorName %>"
+}
