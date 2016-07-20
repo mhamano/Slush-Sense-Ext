@@ -106,9 +106,9 @@ gulp.task('default', function (done) {
                     if (splitted_filename[0] == 'extension') {
                       file.basename = answers.extensionNameSlug
                     }
-                    // if (file.basename[0] === '_') {
-                    //     file.basename = '.' + file.basename.slice(1);
-                    // }
+                    if (file.basename[0] === '_' && file.basename != '_root') {
+                        file.basename = '.' + file.basename.slice(1);
+                    }
                 }))
                 .pipe(conflict('./'))
                 .pipe(gulp.dest('./'))
