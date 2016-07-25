@@ -19,7 +19,11 @@ function ($, /*_,*/ props, initProps, extensionUtils, cssContent) {
 
         initialProperties: initProps,
 
-        snapshot: { canTakeSnapshot: true },
+        support: {
+            snapshot: true,
+            export: true,
+            exportData: true
+        },
 
         resize : function( /*$element, layout*/ ) {
             //do nothing
