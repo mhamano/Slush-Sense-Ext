@@ -1,12 +1,13 @@
 define([
-        'jquery',
+        "qlik",
+        "jquery",
         /*'underscore',*/
-        './properties',
-        './initialproperties',
-        './lib/js/extensionUtils',
-        'text!./lib/css/style.css'
+        "./properties",
+        "./initialproperties",
+        "./lib/js/extensionUtils",
+        "text!./lib/css/style.css"
 ],
-function ($, /*_,*/ props, initProps, extensionUtils, cssContent) {
+function ( qlik, $, /*_,*/ props, initProps, extensionUtils, cssContent ) {
     'use strict';
 
     extensionUtils.addStyleToHeader(cssContent);
@@ -25,21 +26,16 @@ function ($, /*_,*/ props, initProps, extensionUtils, cssContent) {
             exportData: true
         },
 
-        resize : function( /*$element, layout*/ ) {
+        //resize : function( /*$element, layout*/ ) {
             //do nothing
-        },
-
-		//clearSelectedValues : function($element) {
-		//
-		//},
-
+        //},
 
         // Angular Support (uncomment to use)
         //template: '',
 
         // Angular Controller
         //controller: ['$scope', function ($scope) {
-		//
+		    //
         //}],
 
 
@@ -60,6 +56,8 @@ function ($, /*_,*/ props, initProps, extensionUtils, cssContent) {
             $helloWorld.html('Hello World from the extension "<%= extensionName %>"');
             $element.append($helloWorld);
 
+            //needed for export
+            return qlik.Promise.resolve();
         }
     };
 
