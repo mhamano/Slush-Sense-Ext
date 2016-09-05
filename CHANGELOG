@@ -2,3 +2,9 @@ v0.1.0:
   date: 2016-7-19
   changes:
     - Initial release.
+
+v0.2.0:
+  date: 2016-9-05
+  changes:
+  - Reflected Qlik Sense 3.0 update on template files.
+  - Added rimraf to npm dependencies of package.json.
