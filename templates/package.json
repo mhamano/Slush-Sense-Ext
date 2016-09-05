@@ -10,6 +10,10 @@
     "qlik",
     "sense"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/<%= userName %>/<%= extensionNameSlug %>"
+  },
   "author": "<%= authorName %>",
   "license": "MIT",
   "devDependencies": {

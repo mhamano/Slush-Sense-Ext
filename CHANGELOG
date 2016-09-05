@@ -8,3 +8,4 @@ v0.2.0:
   changes:
   - Reflected Qlik Sense 3.0 update on template files.
   - Added rimraf to npm dependencies of package.json.
+  - Added git repository to the template package.json.
