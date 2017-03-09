@@ -46,7 +46,8 @@ var defaults = (function () {
         extensionName: workingDirName,
         userName: osUserName || format(user.name || ''),
         authorName: user.name || '',
-        authorEmail: user.email || ''
+        authorEmail: user.email || '',
+        homeDir: homeDir
     };
 })();
 
