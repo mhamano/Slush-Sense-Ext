@@ -4,8 +4,14 @@ v0.1.0:
     - Initial release.
 
 v0.2.0:
-  date: 2016-9-05
+  date: 2016-09-05
   changes:
   - Reflected Qlik Sense 3.0 update on template files.
   - Added rimraf to npm dependencies of package.json.
   - Added git repository to the template package.json.
+
+v0.3.0:
+  date: 2017-03-09
+  changes:
+  - Changed the name of editorconfig to .editorconfig in templates
+  - Modified extension_dir to use homeDir on config.json of templates 
