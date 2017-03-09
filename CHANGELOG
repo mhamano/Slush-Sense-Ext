@@ -14,4 +14,9 @@ v0.3.0:
   date: 2017-03-09
   changes:
   - Changed the name of editorconfig to .editorconfig in templates
-  - Modified extension_dir to use homeDir on config.json of templates 
+  - Modified extension_dir to use homeDir on config.json of templates
+
+v0.3.1:
+date: 2017-03-09
+changes:
+- modified gulpfile.js in templates 
