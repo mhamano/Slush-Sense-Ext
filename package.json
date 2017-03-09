@@ -1,7 +1,7 @@
 {
   "name": "slush-sense-ext",
   "description": "A slush generator to scaffold a Qlik Sense Extension project",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "homepage": "https://github.com/mhamano/slush-sense-ext",
   "author": {
     "name": "Masaki Hamano",

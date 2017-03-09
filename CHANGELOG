@@ -19,4 +19,9 @@ v0.3.0:
 v0.3.1:
 date: 2017-03-09
 changes:
-- modified gulpfile.js in templates 
+- Modified gulpfile.js in templates
+
+v0.3.2:
+date: 2017-03-09
+changes:
+- Modified the instuction on Readme
