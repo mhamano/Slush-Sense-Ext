@@ -1,5 +1,5 @@
 {
   "extension_name": "<%= extensionNameSlug %>",
-  "extension_dir": "C:/Users/<%= osUserName %>/Documents/Qlik/Sense/Extensions/<%= extensionName %>/",
+  "extension_dir": "<%= homeDir %>/Documents/Qlik/Sense/Extensions/<%= extensionName %>/",
   "package_version": "<%= extensionVersion %>"
 }
