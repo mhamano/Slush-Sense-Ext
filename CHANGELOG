@@ -25,3 +25,8 @@ v0.3.2:
 date: 2017-03-09
 changes:
 - Modified the instuction on Readme
+
+v0.3.3:
+date: 2017-03-09
+changes:
+- Modified slushfile.js to pass homeDir variable
