@@ -1,3 +1,33 @@
+/*
+Example usage:
+
+<Development>
+- Deploy codes to the extension directory manually without uglify
+  gulp default
+
+- Watch codes and deploy automatically without uglify
+  gulp watch
+
+<Release>
+- Clean dist and extensin directory
+  gulp clean:all
+
+- Deploy codes to the extension directory manually with uglify
+  gulp build
+
+- Watch codes and deploy automatically with uglify
+  gulp watch:uglify
+
+- Release uglified codes to /build/release directory
+  (Need to update version on config.json, changelog.yml and package.json)
+  gulp release
+
+<Cleanup>
+- Deleting extension directory on C:\Users\%username%\Documents\Qlik\Sense\Extensions
+  gulp delete:ext_dir
+
+*/
+
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -10,7 +40,6 @@ var zip = require('gulp-zip');
 var plumber = require("gulp-plumber");
 var rimraf = require('rimraf');
 var htmlmin = require('gulp-htmlmin');
-
 var config = require('./config.json');
 
 gulp.task('clean:dist', function(cb) {
@@ -35,12 +64,30 @@ gulp.task('js:root', function() {
   gulp.src('./src/*.js')
   .pipe(plumber())
   //.pipe(concat( extension_name + '.js'))
+  //.pipe(uglify())
+  .pipe(gulp.dest('./dist'))
+  .pipe(gulp.dest(config.extension_dir));
+});
+
+gulp.task('js:root:uglify', function() {
+  gulp.src('./src/*.js')
+  .pipe(plumber())
+  //.pipe(concat( extension_name + '.js'))
   .pipe(uglify())
   .pipe(gulp.dest('./dist'))
   .pipe(gulp.dest(config.extension_dir));
 });
 
 gulp.task('js:lib', function() {
+  gulp.src('./src/lib/js/*.js')
+  .pipe(plumber())
+  //.pipe(concat( extension_name + '.js'))
+  //.pipe(uglify())
+  .pipe(gulp.dest('./dist/lib/js/'))
+  .pipe(gulp.dest(config.extension_dir + 'lib/js/'));
+});
+
+gulp.task('js:lib:uglify', function() {
   gulp.src('./src/lib/js/*.js')
   .pipe(plumber())
   //.pipe(concat( extension_name + '.js'))
@@ -88,11 +135,11 @@ gulp.task('qext', function() {
   .pipe(gulp.dest(config.extension_dir));
 });
 
-gulp.task('zip:dev', function() {
-  gulp.src(['./dist/*', './dist/lib/*', './dist/lib/css/*', './dist/lib/js/*'], {base: 'dist'})
-  .pipe(zip(config.extension_name + '_dev.zip'))
-  .pipe(gulp.dest('./build/dev/'))
-});
+// gulp.task('zip:dev', function() {
+//   gulp.src(['./dist/*', './dist/lib/*', './dist/lib/css/*', './dist/lib/js/*'], {base: 'dist'})
+//   .pipe(zip(config.extension_name + '_dev.zip'))
+//   .pipe(gulp.dest('./build/dev/'))
+// });
 
 gulp.task('zip:release', function() {
   gulp.src(['./dist/*', './dist/lib/*', './dist/lib/css/*', './dist/lib/js/*'], {base: 'dist'})
@@ -100,19 +147,29 @@ gulp.task('zip:release', function() {
   .pipe(gulp.dest('./build/release/'))
 });
 
-gulp.task('build', ['zip:dev'], function() {
-  console.log("Build task completed.");
-});
-
-gulp.task('release', ['zip:release'], function() {
-  console.log("Release task completed.");
+gulp.task('build',  ['js:root:uglify', 'js:lib:uglify', 'qext', 'less', 'html', 'images:root', 'images:lib'], function() {
+  console.log("Default task completed.");
 });
 
 gulp.task('default',  ['js:root', 'js:lib', 'qext', 'less', 'html', 'images:root', 'images:lib'], function() {
   console.log("Default task completed.");
 });
 
+gulp.task('release', ['zip:release'], function() {
+  console.log("Release task completed.");
+});
+
 gulp.task('watch', function() {
+  gulp.watch('./src/*.js', ['js:root']);
+  gulp.watch('./src/lib/js/*.js', ['js:lib']);
+  gulp.watch('./src/lib/less/*.less', ['less']);
+  gulp.watch('./src/*.html', ['html']);
+  gulp.watch('./src/*.+(jpg|jpeg|png|gif|svg)', ['images:root']);
+  gulp.watch('./src/lib/images/*.+(jpg|jpeg|png|gif|svg)', ['images:lib']);
+  gulp.watch('./src/*.qext', ['qext']);
+});
+
+gulp.task('watch:uglify', function() {
   gulp.watch('./src/*.js', ['js:root']);
   gulp.watch('./src/lib/js/*.js', ['js:lib']);
   gulp.watch('./src/lib/less/*.less', ['less']);
