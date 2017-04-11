@@ -2,27 +2,21 @@
 Example usage:
 
 <Development>
-- Deploy codes to the extension directory manually without uglify
+- Deploy codes to the extension directory manually
   gulp default
 
-- Watch codes and deploy automatically without uglify
+- Watch codes and deploy automatically
   gulp watch
 
 <Release>
-- Clean dist and extensin directory
-  gulp clean:all
-
-- Deploy codes to the extension directory manually with uglify
-  gulp build
-
-- Watch codes and deploy automatically with uglify
-  gulp watch:uglify
-
-- Release uglified codes to /build/release directory
+- Release  codes to /build/release directory
   (Need to update version on config.json, changelog.yml and package.json)
   gulp release
 
 <Cleanup>
+- Clean dist and extensin directory
+  gulp clean:all
+
 - Deleting extension directory on C:\Users\%username%\Documents\Qlik\Sense\Extensions
   gulp delete:ext_dir
 
@@ -41,6 +35,7 @@ var plumber = require("gulp-plumber");
 var rimraf = require('rimraf');
 var htmlmin = require('gulp-htmlmin');
 var config = require('./config.json');
+var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('clean:dist', function(cb) {
   rimraf('./dist/*', cb);
@@ -63,17 +58,9 @@ gulp.task('delete:ext_dir', function(cb){
 gulp.task('js:root', function() {
   gulp.src('./src/*.js')
   .pipe(plumber())
-  //.pipe(concat( extension_name + '.js'))
-  //.pipe(uglify())
-  .pipe(gulp.dest('./dist'))
-  .pipe(gulp.dest(config.extension_dir));
-});
-
-gulp.task('js:root:uglify', function() {
-  gulp.src('./src/*.js')
-  .pipe(plumber())
-  //.pipe(concat( extension_name + '.js'))
+  .pipe(sourcemaps.init())
   .pipe(uglify())
+  .pipe(sourcemaps.write('./lib/maps/'))
   .pipe(gulp.dest('./dist'))
   .pipe(gulp.dest(config.extension_dir));
 });
@@ -81,17 +68,9 @@ gulp.task('js:root:uglify', function() {
 gulp.task('js:lib', function() {
   gulp.src('./src/lib/js/*.js')
   .pipe(plumber())
-  //.pipe(concat( extension_name + '.js'))
-  //.pipe(uglify())
-  .pipe(gulp.dest('./dist/lib/js/'))
-  .pipe(gulp.dest(config.extension_dir + 'lib/js/'));
-});
-
-gulp.task('js:lib:uglify', function() {
-  gulp.src('./src/lib/js/*.js')
-  .pipe(plumber())
-  //.pipe(concat( extension_name + '.js'))
+  .pipe(sourcemaps.init())
   .pipe(uglify())
+  .pipe(sourcemaps.write('./lib/maps/'))
   .pipe(gulp.dest('./dist/lib/js/'))
   .pipe(gulp.dest(config.extension_dir + 'lib/js/'));
 });
@@ -99,10 +78,12 @@ gulp.task('js:lib:uglify', function() {
 gulp.task('less', function() {
   gulp.src('./src/lib/less/_root.less')
   .pipe(plumber())
+  .pipe(sourcemaps.init())
   .pipe(concat('style.css'))
   .pipe(less())
   .pipe(autoprefixer())
   .pipe(clean())
+  .pipe(sourcemaps.write('../../lib/maps/'))
   .pipe(gulp.dest('./dist/lib/css/'))
   .pipe(gulp.dest(config.extension_dir + 'lib/css/'));
 });
@@ -135,20 +116,10 @@ gulp.task('qext', function() {
   .pipe(gulp.dest(config.extension_dir));
 });
 
-// gulp.task('zip:dev', function() {
-//   gulp.src(['./dist/*', './dist/lib/*', './dist/lib/css/*', './dist/lib/js/*'], {base: 'dist'})
-//   .pipe(zip(config.extension_name + '_dev.zip'))
-//   .pipe(gulp.dest('./build/dev/'))
-// });
-
 gulp.task('zip:release', function() {
   gulp.src(['./dist/*', './dist/lib/*', './dist/lib/css/*', './dist/lib/js/*'], {base: 'dist'})
   .pipe(zip(config.extension_name + '_' + config.package_version + '.zip'))
   .pipe(gulp.dest('./build/release/'))
-});
-
-gulp.task('build',  ['js:root:uglify', 'js:lib:uglify', 'qext', 'less', 'html', 'images:root', 'images:lib'], function() {
-  console.log("Default task completed.");
 });
 
 gulp.task('default',  ['js:root', 'js:lib', 'qext', 'less', 'html', 'images:root', 'images:lib'], function() {
@@ -160,16 +131,6 @@ gulp.task('release', ['zip:release'], function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./src/*.js', ['js:root']);
-  gulp.watch('./src/lib/js/*.js', ['js:lib']);
-  gulp.watch('./src/lib/less/*.less', ['less']);
-  gulp.watch('./src/*.html', ['html']);
-  gulp.watch('./src/*.+(jpg|jpeg|png|gif|svg)', ['images:root']);
-  gulp.watch('./src/lib/images/*.+(jpg|jpeg|png|gif|svg)', ['images:lib']);
-  gulp.watch('./src/*.qext', ['qext']);
-});
-
-gulp.task('watch:uglify', function() {
   gulp.watch('./src/*.js', ['js:root']);
   gulp.watch('./src/lib/js/*.js', ['js:lib']);
   gulp.watch('./src/lib/less/*.less', ['less']);

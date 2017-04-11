@@ -47,7 +47,7 @@ var defaults = (function () {
         userName: osUserName || format(user.name || ''),
         authorName: user.name || '',
         authorEmail: user.email || '',
-        homeDir: homeDir
+        homeDir: homeDir.replace('\\','/')
     };
 })();
 
@@ -85,6 +85,7 @@ gulp.task('default', function (done) {
             answers.extensionNameSlug = _.slugify(answers.extensionName);
             answers.extensionNameWithoutDash = answers.extensionNameSlug.replace('-', '');
             answers.osUserName = defaults.userName;
+            answers.homeDir = defaults.homeDir;
 
             gulp.src(__dirname + '/templates/src/extension.png')
             .pipe(rename(function (file) {

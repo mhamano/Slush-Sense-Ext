@@ -30,3 +30,9 @@ v0.3.3:
 date: 2017-03-09
 changes:
 - Modified slushfile.js to pass homeDir variable
+
+v0.3.4:
+date: 2017-03-09
+changes:
+- Fixed the slushfile.js to handle homeDir variable properly
+- Included sourcemaps
